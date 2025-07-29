@@ -1498,7 +1498,6 @@ input, select, textarea {
 				#header nav.use-middle:after {
 					display: none;
 				}
-
 		}
 
 /* Main */
@@ -1669,5 +1668,10 @@ input, select, textarea {
 
 		article#grants li {
   			text-align: left;
+		}
+
+		#header .content .inner p {
+ 			margin: 0.3rem 0 !important;
+			line-height: 1.2 !important;
 		}
 		
