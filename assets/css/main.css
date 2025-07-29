@@ -1660,9 +1660,14 @@ input, select, textarea {
 			opacity: 0;
 		}
 
-		article[id="grants"] ul {
+		article#grants ul {
   			list-style: none;
-  			padding: 0;
+ 			padding-left: 0;
+  			margin-left: 0;
+  			text-align: right;
+		}
+
+		article#grants li {
   			text-align: left;
 		}
 		
