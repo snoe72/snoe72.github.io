@@ -1660,8 +1660,8 @@ input, select, textarea {
 			opacity: 0;
 		}
 
-		#grants h2,
-		#grants h3,
-		#grants ul {
-    		text-align: right;
+		article[id="grants"] h2,
+		article[id="grants"] h3,
+		article[id="grants"] ul {
+   			text-align: right;
 		}
