@@ -1663,8 +1663,6 @@ input, select, textarea {
 		article[id="grants"] ul {
   			list-style: none;
   			padding: 0;
-  			text-align: right;
+  			text-align: left;
 		}
-		article#grants ul {
- 			 background: red;
-		}
+		
