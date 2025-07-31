@@ -1349,7 +1349,7 @@ input, select, textarea {
 					padding: 0 1.5rem 0 1.5rem;
 					text-transform: uppercase;
 					letter-spacing: 0.2rem;
-					font-size: 1rem ip !important;
+					font-size: 1rem !important;
 					border-bottom: 0;
 				}
 
