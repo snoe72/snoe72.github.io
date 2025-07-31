@@ -1148,7 +1148,7 @@ input, select, textarea {
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
 			background: rgba(0, 0, 0, 0.5) url("/images/tomb.jpg") center/cover no-repeat;
 			background-blend-mode: darken !important;	
-			filter: brightness(0.6) !important;
+			filter: brightness(0.8) !important;
 			z-index: 1;
 		}
 
