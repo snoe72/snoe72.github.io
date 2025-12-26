@@ -1142,6 +1142,9 @@ input, select, textarea {
 			background: rgba(30, 30, 30, 0.05); /* soft dark gray */
 			z-index: 2;
 		}
+		body.is-preload #bg:after {
+			transform: scale(4.35);
+		}
 
 		#bg:after {
 			transform: scale(4.125);
