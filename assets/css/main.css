@@ -1752,3 +1752,12 @@ input, select, textarea {
 			}
 
 		}
+/* FORCE slow page fade-in (Dimension-proof) */
+#wrapper {
+  opacity: 0;
+  transition: opacity 2.5s ease-in-out;
+}
+
+body:not(.is-preload) #wrapper {
+  opacity: 1;
+}
