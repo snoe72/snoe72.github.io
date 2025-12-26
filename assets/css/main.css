@@ -1144,8 +1144,8 @@ input, select, textarea {
 		}
 
 		#bg:after {
-			transform: scale(2.125);
-			transition: transform 2.325s ease-in-out, filter 2.325s ease-in-out;
+			transform: scale(4.125);
+			transition: transform 4.325s ease-in-out, filter 4.325s ease-in-out;
 			background: rgba(0, 0, 0, 0.5) url("/images/tomb.jpg") center/cover no-repeat;
 			background-blend-mode: darken !important;	
 			filter: brightness(0.8) !important;
