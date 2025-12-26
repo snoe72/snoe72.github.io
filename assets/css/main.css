@@ -1141,14 +1141,10 @@ input, select, textarea {
 			transition-delay: 0.75s;
 			background: rgba(30, 30, 30, 0.05); /* soft dark gray */
 			z-index: 2;
-		}
-		body.is-preload #bg:after {
-			transform: scale(4.35);
-		}
-
+		
 		#bg:after {
-			transform: scale(4.125);
-			transition: transform 4.325s ease-in-out, filter 4.325s ease-in-out;
+			transform: scale(0.125);
+			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
 			background: rgba(0, 0, 0, 0.5) url("/images/tomb.jpg") center/cover no-repeat;
 			background-blend-mode: darken !important;	
 			filter: brightness(0.8) !important;
