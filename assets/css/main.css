@@ -1332,7 +1332,7 @@ input, select, textarea {
 				text-transform: uppercase;
 				letter-spacing: 0.1rem;
 				font-size: 0.9rem;
-				line-height: 2;
+				line-height: 1;
 			}
 
 		#header nav ul {
