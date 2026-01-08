@@ -1141,6 +1141,7 @@ input, select, textarea {
 			transition-delay: 0.75s;
 			background: rgba(30, 30, 30, 0.05); /* soft dark gray */
 			z-index: 2;
+		}
 		
 		#bg:after {
 			transform: scale(0.125);
