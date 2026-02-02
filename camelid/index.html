@@ -1,12 +1,109 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Camelid Genome Atlas</title>
-  </head>
-  <body>
-    <h1>Camelid Genome Atlas (prototype)</h1>
-    <p>If you can read this, the /camelid/ page is working.</p>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Camelid Breeding and Heritage Database</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; }
+    h1 { margin: 0 0 10px; }
+    .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 12px 0 18px; }
+    input { padding: 10px 12px; min-width: 280px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid #eee; padding: 10px 8px; text-align: left; }
+    th { font-size: 12px; letter-spacing: .03em; text-transform: uppercase; color: #444; }
+    .muted { color: #666; font-size: 14px; }
+    .count { font-weight: 600; }
+    .err { color: #b00020; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Camelid Breeding and Heritage Database (prototype)</h1>
+  <div class="muted">Searchable sample list pulled live from Supabase.</div>
+
+  <div class="row">
+    <input id="q" type="search" placeholder="Search (sample_id, country, region, taxon)..." />
+    <div class="count" id="count">0 records</div>
+  </div>
+
+  <div id="error" class="err"></div>
+
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th>sample_id</th>
+        <th>modern_or_ancient</th>
+        <th>taxon</th>
+        <th>country</th>
+        <th>region</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Supabase JS client (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // 1) PASTE YOUR VALUES HERE (do not share them publicly elsewhere):
+    const SUPABASE_URL = "https://sdzlajnawfrgztnqhbwk.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_kk424iQ_R7Nc5ISXSgw_Bw_aTd8v9KB";
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let rows = [];
+
+    function render(filtered) {
+      const tbody = document.querySelector("#tbl tbody");
+      tbody.innerHTML = "";
+      for (const r of filtered) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.sample_id ?? ""}</td>
+          <td>${r.modern_or_ancient ?? ""}</td>
+          <td>${r.taxon ?? ""}</td>
+          <td>${r.country ?? ""}</td>
+          <td>${r.region ?? ""}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+      document.getElementById("count").textContent = `${filtered.length} records`;
+    }
+
+    function applySearch() {
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      if (!q) return render(rows);
+
+      const filtered = rows.filter(r => {
+        const hay = [
+          r.sample_id, r.modern_or_ancient, r.taxon, r.country, r.region
+        ].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+      render(filtered);
+    }
+
+    async function load() {
+      document.getElementById("error").textContent = "";
+      const { data, error } = await supabase
+        .from("samples")
+        .select("sample_id, modern_or_ancient, taxon, country, region")
+        .order("sample_id", { ascending: true });
+
+      if (error) {
+        document.getElementById("error").textContent =
+          "Error loading data. Common causes:\n" +
+          "- RLS policy not set for SELECT (anon)\n" +
+          "- Wrong Project URL or anon key\n\n" +
+          `Supabase error: ${error.message}`;
+        return;
+      }
+
+      rows = data || [];
+      render(rows);
+    }
+
+    document.getElementById("q").addEventListener("input", applySearch);
+    load();
+  </script>
+</body>
 </html>
