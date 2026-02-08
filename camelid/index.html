@@ -4,9 +4,71 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Camelid Breeding and Heritage Database</title>
+
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; }
-    h1 { margin: 0 0 10px; }
+    :root { --max: 1200px; }
+
+    /* Reset-ish */
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; }
+    h1 { margin: 0; }
+
+    /* Top nav */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      background: #fff;
+    }
+    .brand{ font-weight: 700; font-size: 18px; }
+    .nav a{
+      margin-left: 18px;
+      text-decoration:none;
+      color:#111;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+    .nav a:hover{ opacity: 1; }
+
+    /* Hero */
+    .hero{
+      min-height: 58vh;
+      display:flex;
+      align-items:center;
+      background-image: url("hero.jpg"); /* <-- CHANGE THIS */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .hero-card{
+      margin-left: clamp(18px, 5vw, 80px);
+      max-width: 760px;
+      padding: 48px 52px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+    .hero-card h1{
+      margin: 0 0 12px 0;
+      font-size: clamp(40px, 4vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .hero-card p{
+      margin: 0;
+      color: #222;
+      font-size: 18px;
+      line-height: 1.5;
+      max-width: 60ch;
+    }
+
+    /* Main content area */
+    .page{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 26px 28px 80px;
+    }
+
     .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 12px 0 18px; }
     input { padding: 10px 12px; min-width: 280px; }
     table { border-collapse: collapse; width: 100%; }
@@ -17,29 +79,54 @@
     .err { color: #b00020; white-space: pre-wrap; }
   </style>
 </head>
+
 <body>
-  <h1>Camelid Breeding and Heritage Database (prototype)</h1>
-  <div class="muted">Searchable sample list pulled live from Supabase.</div>
+  <!-- NEW: header/nav -->
+  <header class="topbar">
+    <div class="brand">CBHD</div>
+    <nav class="nav">
+      <a href="#browse">Browse</a>
+      <a href="#about">About</a>
+      <a href="#contribute">Contribute</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <div class="row">
-    <input id="q" type="search" placeholder="Search (sample_id, country, region, taxon)..." />
-    <div class="count" id="count">0 records</div>
-  </div>
+  <!-- NEW: hero -->
+  <section class="hero">
+    <div class="hero-card">
+      <h1>Camelid Breeding and Heritage Database</h1>
+      <p>
+        Searchable sample list linked to genomic, isotopic, and archaeological metadata.
+        Built to support research, conservation, and community collaboration.
+      </p>
+    </div>
+  </section>
 
-  <div id="error" class="err"></div>
+  <!-- MOVED: your existing UI goes into main -->
+  <main class="page" id="browse">
+    <div class="muted">Searchable sample list pulled live from Supabase.</div>
 
-  <table id="tbl">
-    <thead>
-      <tr>
-        <th>sample_id</th>
-        <th>modern_or_ancient</th>
-        <th>taxon</th>
-        <th>country</th>
-        <th>region</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <div class="row">
+      <input id="q" type="search" placeholder="Search (sample_id, country, region, taxon)..." />
+      <div class="count" id="count">0 records</div>
+    </div>
+
+    <div id="error" class="err"></div>
+
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th>sample_id</th>
+          <th>modern_or_ancient</th>
+          <th>taxon</th>
+          <th>country</th>
+          <th>region</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
 
   <!-- Supabase JS client (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
